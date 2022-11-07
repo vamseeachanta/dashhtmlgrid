@@ -9,42 +9,14 @@ title Visualizations\n A generic Dashboard
 start
 
     note right
-        Objective: Standardization, automation for rinse & repeat use.
+        Objective: Standardize & automate for rinse & repeat use.
+        Using for 1st time? Start with 1 chart and 1 table
     end note
 
     partition "Load Data" {
 
         :Prepare and Load Data as 
          Pandas DataFrame (df);
-
-    }
-
-    partition "HTML Layout" {
-
-
-        :Define Layout sections;
-            note right
-                Provide in order of display
-                Default is 1 dropdown with 2 charts
-                i.e. ['dropdown', 'graph', 'graph]
-            end note
-
-        :Configure dropdown (text & selection);
-            note right
-                text (default is generic)
-                select type (single or multiple)
-                Options & start_value (data dependent)
-            end note
-
-        :Inject Figures into each HTML layout;
-            note right
-                This is done using update functions
-            end note
-
-        :Inject tables into each HTML layout;
-            note right
-                This is done using update functions?
-            end note
 
     }
 
@@ -65,6 +37,47 @@ start
                 Multiple charts will have dfs redefined.
                 No filtering recommended. 
                 Utilize dictionary of dfs?
+            end note
+
+    }
+
+    partition "Prepare Tables" {
+        
+        :Plan & Prepare Tables;
+            note right
+                A div for a table.
+                HTML code to be injected.
+            end note
+
+    }
+
+
+
+    partition "HTML Layout" {
+
+
+        :Define Layout sections;
+            note right
+                Provide in order of display
+                Default is 1 dropdown with 2 charts
+                i.e. ['dropdown', 'graph', 'table']
+            end note
+
+        :Configure dropdown (text & selection);
+            note right
+                text (default is generic)
+                select type (single or multiple)
+                Options & start_value (data dependent)
+            end note
+
+        :Inject Figures into each HTML layout;
+            note right
+                This is done using update functions
+            end note
+
+        :Inject tables into each HTML layout;
+            note right
+                This is done using update functions?
             end note
 
     }
