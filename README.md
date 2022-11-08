@@ -9,6 +9,9 @@ Plotly Dash is selected to help prepare and present visualizations in a single d
 A library is under development to standardize this. See [dashhtmlgrid](https://github.com/vamseeachanta/dashhtmlgrid)
 
 **#TODO**
+- A decidated plotly visualization library is required to help develop faster custom plotting
+    - The data provided to charts should be dedicated dfs with simple configuration files
+
 
 # Usage
 
