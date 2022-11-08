@@ -3,7 +3,7 @@ import pandas as pd
 from collections import OrderedDict
 
 
-def get_example_data_df(selected_dropdown_value=None):
+def get_example_data_table_df(selected_dropdown_value=None):
     data_election = OrderedDict([
         (
             "Date",
@@ -34,9 +34,9 @@ def get_example_data_df(selected_dropdown_value=None):
     return df
 
 
-def get_dash_table_from_df(df):
+def get_dash_table_from_df(df, table_data_id):
     df_dash_table = dash_table.DataTable(
-        id='election_data_input',
+        id=table_data_id,
         data=df.to_dict('records'),
         columns=[{
             'id': c,

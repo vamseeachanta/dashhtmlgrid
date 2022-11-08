@@ -1,10 +1,8 @@
-from lib2to3.pgen2.pgen import DFAState
 import plotly.graph_objects as go
 
-plt_setting = {
+plt_settings_generic = {
     'html_className':
         'eight columns div-for-charts',
-    'id': ['timeseries', 'change'],
     'color_list': [[
         "#5E0DAC", '#FF4F00', '#375CB1', '#FF7400', '#FFF400', '#FF0056'
     ], ["#5E0DAC", '#FF4F00', '#375CB1', '#FF7400', '#FFF400', '#FF0056']]
@@ -39,12 +37,12 @@ trace_cfg_array = [{
 }]
 
 
-#TODO Parametrize the chart settings further
-def get_plt_go_layout(plt_range):
+def get_plt_go_layout():
     plt_go_layout = []
 
+    title = {'text': 'Daily Change', 'font': {'color': 'black'}, 'x': 0.5}
     plt_go_layout = go.Layout(
-        colorway=plt_setting['color_list'][1],
+        colorway=plt_settings_generic['color_list'][0],
         template='plotly_white',
         paper_bgcolor='rgba(0, 0, 0, 0)',
         plot_bgcolor='rgba(0, 0, 0, 0)',
@@ -52,16 +50,9 @@ def get_plt_go_layout(plt_range):
         height=250,
         hovermode='x',
         autosize=True,
-        title={
-            'text': 'Daily Change',
-            'font': {
-                'color': 'black'
-            },
-            'x': 0.5
-        },
+        title=title,
         xaxis={
-            'showticklabels': False,
-            'range': plt_range
+            'showticklabels': True,
         },
     )
 
@@ -80,9 +71,9 @@ def get_figure_for_chart1(df, selected_dropdown_value):
 
     traces = [trace]
     data = [val for sublist in traces for val in sublist]
+
     # Define Figure
-    plt_range = [df[trace_cfg['x']].min(), df[trace_cfg['x']].max()]
-    plt_go_layout = get_plt_go_layout(plt_range)
+    plt_go_layout = get_plt_go_layout()
 
     figure = {
         'data': data,
@@ -105,9 +96,8 @@ def get_figure_for_chart2(df, selected_dropdown_value):
 
     traces = [trace]
     data = [val for sublist in traces for val in sublist]
-    # Define Figure
-    plt_range = [df[trace_cfg['x']].min(), df[trace_cfg['x']].max()]
-    plt_go_layout = get_plt_go_layout(plt_range)
+
+    plt_go_layout = get_plt_go_layout()
 
     figure = {
         'data': data,
