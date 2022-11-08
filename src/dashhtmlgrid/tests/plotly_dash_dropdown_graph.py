@@ -1,5 +1,6 @@
 """ 
 VS Code notes: Run file. "Deug Run file" gives error. 
+An example of single selection dropdown menu
 """
 import dash
 import pandas as pd

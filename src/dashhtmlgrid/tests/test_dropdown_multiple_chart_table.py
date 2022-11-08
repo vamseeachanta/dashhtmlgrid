@@ -37,20 +37,6 @@ figure_settings = [{
     }
 }]
 
-trace_cfg_array = [{
-    'data_source': None,
-    'filter_column': 'stock',
-    'filter_value': None,
-    'x': 'Date',
-    'y': 'value'
-}, {
-    'data_source': None,
-    'filter_column': 'stock',
-    'filter_value': None,
-    'x': 'Date',
-    'y': 'change'
-}]
-
 stock_df = get_stock_data_df()
 dropdown_options = get_drop_down_options(stock_df['stock'].unique())
 dropdown_settings = [{
