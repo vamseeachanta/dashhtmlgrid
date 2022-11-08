@@ -1,15 +1,15 @@
 from dash import html, dcc
 
 
-def get_drop_down_settings(data_source):
+def get_full_dropdown_settings(dropdown_settings, dropdown_indx=0):
 
-    drop_down_settings = {
+    full_dropdown_settings = {
         'multiple_flag': True,
         'html_className': 'div-for-dropdown',
-        'id': 'stockselector',
-        'className': 'stockselector',
-        'options': data_source['drop_down_options'],
-        'start_value': data_source['drop_down_options'][0]['label'],
+        'id': 'dropdownselector',
+        'className': 'dropdownselector',
+        'options': dropdown_settings[dropdown_indx]['options'],
+        'start_value': dropdown_settings[dropdown_indx]['options'][0]['label'],
         'style': {
             'backgroundColor': '#ffffff'
         },
@@ -18,23 +18,24 @@ def get_drop_down_settings(data_source):
         }
     }
 
-    return drop_down_settings
+    return full_dropdown_settings
 
 
-def get_drop_down_div(data_source):
+def get_dropdown_div(dropdown_settings, dropdown_indx=0):
 
-    drop_down_settings = get_drop_down_settings(data_source)
+    full_dropdown_settings = get_full_dropdown_settings(dropdown_settings,
+                                                        dropdown_indx=0)
 
-    drop_down_div = html.Div(className=drop_down_settings['html_className'],
-                             children=[
-                                 dcc.Dropdown(
-                                     id=drop_down_settings['id'],
-                                     options=drop_down_settings['options'],
-                                     multi=drop_down_settings['multiple_flag'],
-                                     value=[drop_down_settings['start_value']],
-                                     style=drop_down_settings['style'],
-                                     className=drop_down_settings['className']),
-                             ],
-                             style=drop_down_settings['html_style'])
+    drop_down_div = html.Div(
+        className=full_dropdown_settings['html_className'],
+        children=[
+            dcc.Dropdown(id=full_dropdown_settings['id'],
+                         options=full_dropdown_settings['options'],
+                         multi=full_dropdown_settings['multiple_flag'],
+                         value=[full_dropdown_settings['start_value']],
+                         style=full_dropdown_settings['style'],
+                         className=full_dropdown_settings['className']),
+        ],
+        style=full_dropdown_settings['html_style'])
 
     return drop_down_div

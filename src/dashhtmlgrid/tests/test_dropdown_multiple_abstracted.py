@@ -3,7 +3,7 @@ from dash.dependencies import Input, Output
 
 from dashhtmlgrid.tests.test_data import get_input_data
 from dashhtmlgrid.dropdown import get_drop_down_div
-from dashhtmlgrid.plt_children import get_figure_for_chart1, get_figure_for_chart2
+from dashhtmlgrid.plt_children import get_figure_0, get_figure_1
 from dashhtmlgrid.html_layout import get_html_layout_multiple_abstracted
 from dashhtmlgrid.tests.data_table import get_example_data_table_df, get_dash_table_from_df
 
@@ -24,7 +24,7 @@ def update_chart_1(selected_dropdown_value):
 
     data_source = get_input_data()
     chart_1_df = data_source['df'].copy()
-    figure = get_figure_for_chart1(chart_1_df, selected_dropdown_value)
+    figure = get_figure_0(chart_1_df, selected_dropdown_value)
 
     return figure
 
@@ -34,7 +34,7 @@ def update_chart_2(selected_dropdown_value):
 
     data_source = get_input_data()
     chart_2_df = data_source['df'].copy()
-    figure = get_figure_for_chart2(chart_2_df, selected_dropdown_value)
+    figure = get_figure_1(chart_2_df, selected_dropdown_value)
 
     return figure
 

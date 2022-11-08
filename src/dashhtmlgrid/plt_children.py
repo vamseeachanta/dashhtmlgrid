@@ -22,25 +22,12 @@ def get_plt_trace(cfg):
     return plt_trace
 
 
-trace_cfg_array = [{
-    'data_source': None,
-    'filter_column': 'stock',
-    'filter_value': None,
-    'x': 'Date',
-    'y': 'value'
-}, {
-    'data_source': None,
-    'filter_column': 'stock',
-    'filter_value': None,
-    'x': 'Date',
-    'y': 'change'
-}]
-
-
-def get_plt_go_layout():
+def get_plt_go_layout(figure_settings, figure_idx):
     plt_go_layout = []
 
     title = {'text': 'Daily Change', 'font': {'color': 'black'}, 'x': 0.5}
+    title.update(figure_settings[figure_idx]['title'])
+
     plt_go_layout = go.Layout(
         colorway=plt_settings_generic['color_list'][0],
         template='plotly_white',
@@ -59,12 +46,12 @@ def get_plt_go_layout():
     return plt_go_layout
 
 
-def get_figure_for_chart1(df, selected_dropdown_value):
+def get_figure(df, selected_dropdown_value, figure_settings, figure_idx):
 
     trace = []
     # Draw and append traces for each selected value
     for stock in selected_dropdown_value:
-        trace_cfg = trace_cfg_array[0].copy()
+        trace_cfg = figure_settings[figure_idx]['trace'].copy()
         trace_cfg.update({'data_source': df, 'filter_value': stock})
         trace_value = get_plt_trace(trace_cfg)
         trace.append(trace_value)
@@ -73,31 +60,7 @@ def get_figure_for_chart1(df, selected_dropdown_value):
     data = [val for sublist in traces for val in sublist]
 
     # Define Figure
-    plt_go_layout = get_plt_go_layout()
-
-    figure = {
-        'data': data,
-        'layout': plt_go_layout,
-    }
-
-    return figure
-
-
-def get_figure_for_chart2(df, selected_dropdown_value):
-    ''' Draw traces of the feature 'change' based one the currently selected stocks '''
-    trace = []
-    # Draw and append traces for each selected value
-
-    for stock in selected_dropdown_value:
-        trace_cfg = trace_cfg_array[1].copy()
-        trace_cfg.update({'data_source': df, 'filter_value': stock})
-        trace_value = get_plt_trace(trace_cfg)
-        trace.append(trace_value)
-
-    traces = [trace]
-    data = [val for sublist in traces for val in sublist]
-
-    plt_go_layout = get_plt_go_layout()
+    plt_go_layout = get_plt_go_layout(figure_settings, figure_idx)
 
     figure = {
         'data': data,

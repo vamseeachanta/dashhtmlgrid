@@ -1,4 +1,3 @@
-from dash import dash_table
 import pandas as pd
 from collections import OrderedDict
 
@@ -32,30 +31,3 @@ def get_example_data_table_df(selected_dropdown_value=None):
 
     df = pd.DataFrame(data_election)
     return df
-
-
-def get_dash_table_from_df(df, table_data_id):
-    df_dash_table = dash_table.DataTable(
-        id=table_data_id,
-        data=df.to_dict('records'),
-        columns=[{
-            'id': c,
-            'name': c
-        } for c in df.columns],
-        tooltip_data=[{
-            column: {
-                'value': str(value),
-                'type': 'markdown'
-            } for column, value in row.items()
-        } for row in df.to_dict('records')],
-
-    # Overflow into ellipsis
-        style_cell={
-            'overflow': 'hidden',
-            'textOverflow': 'ellipsis',
-            'maxWidth': 0,
-        },
-        tooltip_delay=0,
-        tooltip_duration=None)
-
-    return df_dash_table
