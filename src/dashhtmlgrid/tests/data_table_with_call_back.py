@@ -1,7 +1,8 @@
 from dash import Dash
 from dash.dependencies import Input, Output
 
-from dashhtmlgrid.tests.data_table import get_example_data_table_df, get_dash_table_from_df
+from dashhtmlgrid.data_table import get_dash_table_from_df
+from dashhtmlgrid.tests.example_data_table import get_example_data_table_df
 from dashhtmlgrid.tests.test_data import get_input_data
 from dashhtmlgrid.dropdown import get_drop_down_div
 from dashhtmlgrid.html_layout import get_html_layout_data_table_call_back

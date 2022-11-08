@@ -1,13 +1,12 @@
-from dash import Dash, html
-import plotly.graph_objects as go
+from dash import Dash
 from dash.dependencies import Input, Output
 
 from dashhtmlgrid.plt_children import get_figure
 from dashhtmlgrid.html_layout import get_html_layout
 from dashhtmlgrid.data_table import get_dash_table_from_df
 
-from dashhtmlgrid.tests.test_stock_data import get_input_data, get_stock_data_df, get_drop_down_options
-from dashhtmlgrid.tests.test_example_data_table import get_example_data_table_df
+from dashhtmlgrid.tests.example_stock_data import get_input_data, get_stock_data_df, get_drop_down_options
+from dashhtmlgrid.tests.example_data_table import get_example_data_table_df
 
 # Dashboard custom settings
 grid_array = ['dropdown', 'table', 'figure', 'figure']
