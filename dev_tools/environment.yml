@@ -11,4 +11,3 @@ dependencies:
     - dash
     - pyyaml
     - bumpver
-    - dash_bootstrap_components
