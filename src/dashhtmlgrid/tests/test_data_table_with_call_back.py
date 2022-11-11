@@ -16,10 +16,12 @@ figure_settings = []
 stock_df = get_stock_data_df()
 dropdown_options = get_drop_down_options(stock_df['stock'].unique())
 dropdown_settings = [{
+    'id': 'dropdownselector',
+    'className': 'dropdownselector',
     "H2": 'DASH - STOCK PRICES',
     "p1": 'Visualising time series with Plotly - Dash.',
     "p2": 'Pick one or more options from the dropdown below.',
-    'multiple': False,
+    'multiple_flag': False,
     'options': dropdown_options,
     'start_value': None    # Optional to provide 1 value from dropdown_options
 }]

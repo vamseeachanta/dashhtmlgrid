@@ -40,10 +40,12 @@ figure_settings = [{
 stock_df = get_stock_data_df()
 dropdown_options = get_drop_down_options(stock_df['stock'].unique())
 dropdown_settings = [{
+    'id': 'dropdownselector',
+    'className': 'dropdownselector',
     "H2": 'DASH - STOCK PRICES',
     "p1": 'Visualising time series with Plotly - Dash.',
     "p2": 'Pick one or more options from the dropdown below.',
-    'multiple': True,
+    'multiple_flag': False,
     'options': dropdown_options,
     'start_value': None    # Optional to provide 1 value from dropdown_options
 }]
@@ -71,7 +73,7 @@ app.layout = get_html_layout(layout_settings_custom)
 
 # Callback for Child Chart #1 (i.e. timeseries price)
 @app.callback(Output(figure_settings[0]['id'], 'figure'),
-              [Input('dropdownselector', 'value')])
+              [Input(dropdown_settings[0]['id'], 'value')])
 def update_figure_0(selected_dropdown_value):
 
     data_source = get_input_data()
@@ -86,7 +88,7 @@ def update_figure_0(selected_dropdown_value):
 
 # Callback for Child Chart #2 (i.e. Change Chart)
 @app.callback(Output(figure_settings[1]['id'], 'figure'),
-              [Input('dropdownselector', 'value')])
+              [Input(dropdown_settings[0]['id'], 'value')])
 def update_figure_1(selected_dropdown_value):
 
     data_source = get_input_data()
@@ -101,7 +103,7 @@ def update_figure_1(selected_dropdown_value):
 
 # Callback for Table #1 (i.e. Example table)
 @app.callback(Output(table_settings[0]['html_id'], 'children'),
-              [Input('dropdownselector', 'value')])
+              [Input(dropdown_settings[0]['id'], 'value')])
 def update_table_0(selected_dropdown_value):
 
     table_1_df = get_example_data_table_df()

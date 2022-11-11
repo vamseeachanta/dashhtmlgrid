@@ -3,13 +3,17 @@ from dash import html, dcc
 
 def get_full_dropdown_settings(dropdown_settings, dropdown_indx=0):
 
+    start_value = dropdown_settings[dropdown_indx]['start_value']
+    start_value = start_value if start_value is not None else dropdown_settings[
+        dropdown_indx]['options'][0]['value']
+
     full_dropdown_settings = {
-        'multiple_flag': True,
+        'multiple_flag': dropdown_settings[dropdown_indx]['multiple_flag'],
         'html_className': 'div-for-dropdown',
-        'id': 'dropdownselector',
-        'className': 'dropdownselector',
+        'id': dropdown_settings[dropdown_indx]['id'],
+        'className': dropdown_settings[dropdown_indx]['className'],
         'options': dropdown_settings[dropdown_indx]['options'],
-        'start_value': dropdown_settings[dropdown_indx]['options'][0]['label'],
+        'start_value': start_value,
         'style': {
             'backgroundColor': '#ffffff'
         },
@@ -26,7 +30,7 @@ def get_dropdown_div(dropdown_settings, dropdown_indx=0):
     full_dropdown_settings = get_full_dropdown_settings(dropdown_settings,
                                                         dropdown_indx=0)
 
-    if dropdown_settings[dropdown_indx]['multiple']:
+    if dropdown_settings[dropdown_indx]['multiple_flag']:
         children = [
             dcc.Dropdown(id=full_dropdown_settings['id'],
                          options=full_dropdown_settings['options'],
@@ -37,11 +41,12 @@ def get_dropdown_div(dropdown_settings, dropdown_indx=0):
         ]
     else:
         children = [
-            dcc.Dropdown(id=full_dropdown_settings['id'],
-                         options=full_dropdown_settings['options'],
-                         value=[full_dropdown_settings['start_value']],
-                         style=full_dropdown_settings['style'],
-                         className=full_dropdown_settings['className']),
+            dcc.Dropdown(
+                id=full_dropdown_settings['id'],
+                options=full_dropdown_settings['options'],
+                className=full_dropdown_settings['className'],
+                value=[full_dropdown_settings['start_value']],
+            ),
         ]
 
     drop_down_div = html.Div(className=full_dropdown_settings['html_className'],

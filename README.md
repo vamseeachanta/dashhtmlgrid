@@ -30,10 +30,16 @@ The library currently supports:
 
 ## Example codes
 
+- Dropdown, multiple option selection. Example is given below:
+
+Code file: src\dashhtmlgrid\tests\test_dropdown_multiple_options.py
+
+<img src="docs\test_dropdown_multiple_options.png" width=600, height=auto/>
+
+
 - Dropdown - Single selection. Example is given below:
     - https://github.com/vamseeachanta/energy/blob/ea3d37d9c65175cb6718d3052948d1871b3e54e2/py/utilities/plotly_dash_dropdown_graph.py
-- Dropdown - Multiple selection. Example is given below:
-    - https://github.com/vamseeachanta/energy/blob/ea3d37d9c65175cb6718d3052948d1871b3e54e2/py/utilities/plotly_dash_dashboard1.py
+
 
 ## Drag value - Circular Callback
 
