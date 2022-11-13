@@ -11,3 +11,4 @@ dependencies:
     - dash
     - pyyaml
     - bumpver
+    - webcolors
