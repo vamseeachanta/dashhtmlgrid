@@ -1,8 +1,10 @@
 import pandas as pd
 
 data_source = {
-    'type': 'csv',
-    'filename': 'src/dashhtmlgrid/tests/test_data/stockdata.csv'
+    'type':
+        'csv',
+    'filename':
+        'https://raw.githubusercontent.com/vamseeachanta/dashhtmlgrid/master/src/dashhtmlgrid/tests/test_data/stockdata.csv'
 }
 data_definitions = {'x': 'Date', 'y': 'value'}
 data_source.update({'data_definitions': data_definitions})
@@ -24,8 +26,13 @@ def get_input_data():
 
 def get_stock_data_df():
     if data_source['type'] == 'csv':
-        df = pd.read_csv(data_source['filename'], index_col=0, parse_dates=True)
-        df.index = pd.to_datetime(df['Date'])
+        try:
+            df = pd.read_csv(data_source['filename'],
+                             index_col=0,
+                             parse_dates=True)
+            df.index = pd.to_datetime(df['Date'])
+        except:
+            df = pd.DataFrame()
     else:
         raise ("Data source is undefined. Custom data reading is required")
 

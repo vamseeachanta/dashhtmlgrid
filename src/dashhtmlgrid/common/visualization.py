@@ -22,7 +22,15 @@ class Visualization():
                 }
             }
 
-        self.default_layout = {'title': 'Title', 'xaxis': {'title': 'X Label'}, 'yaxis': {'title': 'Y Label'}}
+        self.default_layout = {
+            'title': 'Title',
+            'xaxis': {
+                'title': 'X Label'
+            },
+            'yaxis': {
+                'title': 'Y Label'
+            }
+        }
 
     def get_plotly_data(self, cfg):
         import json
@@ -42,7 +50,13 @@ class Visualization():
             self.assign_grouped_data()
         self.assign_layout()
 
-        return json.dumps(self.plot_data, cls=plotly.utils.PlotlyJSONEncoder)
+        if format in cfg.keys() and cfg['format'] == 'json':
+            plotly_data = json.dumps(self.plot_data,
+                                     cls=plotly.utils.PlotlyJSONEncoder)
+        else:
+            plotly_data = self.plot_data
+
+        return plotly_data
 
     def assign_simple_data_by_array_source(self):
         pass
@@ -98,8 +112,18 @@ class Visualization():
         def get_data_name(cfg):
             pass
 
-        def get_data_item(cfg, x_data, y_data, z_data, series_name, text_data=[]):
-            cfg.update({'x': x_data, 'y': y_data, 'z': z_data, 'name': series_name})
+        def get_data_item(cfg,
+                          x_data,
+                          y_data,
+                          z_data,
+                          series_name,
+                          text_data=[]):
+            cfg.update({
+                'x': x_data,
+                'y': y_data,
+                'z': z_data,
+                'name': series_name
+            })
             if cfg.__contains__('text'):
                 cfg.update({'text': text_data})
             return cfg
@@ -139,16 +163,20 @@ class Visualization():
                     text_data = get_text_data(df, text_column)
                     series_name = self.cfg['name'][y_data_index]
                     cfg_temp = get_data_cfg()
-                    if cfg_temp.__contains__('marker') and cfg_temp['marker'].__contains__('sizerefcolumn'):
+                    if cfg_temp.__contains__('marker') and cfg_temp[
+                            'marker'].__contains__('sizerefcolumn'):
                         sizecolumn = cfg_temp['marker'].get('sizecolumn', None)
                         sizedata = get_y_data(df, sizecolumn)
-                        sizerefcolumn = cfg_temp['marker'].get('sizerefcolumn', None)
+                        sizerefcolumn = cfg_temp['marker'].get(
+                            'sizerefcolumn', None)
                         sizerefdata = get_y_data(df, sizerefcolumn)
                     else:
                         sizerefdata = []
                         sizedata = []
-                    cfg_data = self.assign_custom_properties(cfg_temp, sizedata, sizerefdata)
-                    data = get_data_item(cfg_data, x_data, y_data, z_data, series_name, text_data)
+                    cfg_data = self.assign_custom_properties(
+                        cfg_temp, sizedata, sizerefdata)
+                    data = get_data_item(cfg_data, x_data, y_data, z_data,
+                                         series_name, text_data)
                     plot_data.append(data.copy())
 
             return plot_data
@@ -166,7 +194,12 @@ class Visualization():
             for name in names:
                 x_data = grouped_df.get_group(name)[self.cfg['x'][0]]
                 y_data = grouped_df.get_group(name)[self.cfg['y'][0]]
-                data = {'x': x_data, 'y': y_data, 'name': name, 'type': plot_type}
+                data = {
+                    'x': x_data,
+                    'y': y_data,
+                    'name': name,
+                    'type': plot_type
+                }
                 if 'text' in list(df.columns):
                     text_data = grouped_df.get_group(name)[self.cfg['y'][0]]
                     data.update({'text': text_data})
@@ -187,7 +220,8 @@ class Visualization():
             if sizeref is None:
                 sizemax = marker['sizemax']
                 sizeref_max = sizerefdata.max()
-                marker['sizeref'] = self.get_custom_size_ref(sizeref_max, sizemax)
+                marker['sizeref'] = self.get_custom_size_ref(
+                    sizeref_max, sizemax)
                 cfg['marker'] = marker
 
         return cfg
@@ -217,14 +251,18 @@ class Visualization():
         from webcolors import rgb_to_hex
         if n <= 8:
             colors = [
-                "#75968f", "#a5bab7", "#c9d9d3", "#e2e2e2", "#dfccce", "#ddb7b1", "#cc7878", "#933b41", "#550b1d"
+                "#75968f", "#a5bab7", "#c9d9d3", "#e2e2e2", "#dfccce",
+                "#ddb7b1", "#cc7878", "#933b41", "#550b1d"
             ]
         else:
             # Tableau 20 Colors
-            colors = [(31, 119, 180), (174, 199, 232), (255, 127, 14), (255, 187, 120), (44, 160, 44), (152, 223, 138),
-                      (214, 39, 40), (255, 152, 150), (148, 103, 189), (197, 176, 213), (140, 86, 75), (196, 156, 148),
-                      (227, 119, 194), (247, 182, 210), (127, 127, 127), (199, 199, 199), (188, 189, 34),
-                      (219, 219, 141), (23, 190, 207), (158, 218, 229)]
+            colors = [(31, 119, 180), (174, 199, 232), (255, 127, 14),
+                      (255, 187, 120), (44, 160, 44), (152, 223, 138),
+                      (214, 39, 40), (255, 152, 150), (148, 103, 189),
+                      (197, 176, 213), (140, 86, 75), (196, 156, 148),
+                      (227, 119, 194), (247, 182, 210), (127, 127, 127),
+                      (199, 199, 199), (188, 189, 34), (219, 219, 141),
+                      (23, 190, 207), (158, 218, 229)]
             colors = [rgb_to_hex(color) for color in colors]
         return colors
 
