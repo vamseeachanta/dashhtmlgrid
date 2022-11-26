@@ -17,5 +17,5 @@ More information is available at:
 Version:
 --------
 
-- dashhtmlgrid v0.0.1
+- dashhtmlgrid v0.1.0
 """
