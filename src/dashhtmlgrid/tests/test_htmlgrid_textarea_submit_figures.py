@@ -1,5 +1,6 @@
 from dash import Dash
 from dash.dependencies import Input, Output, State
+from dash.exceptions import PreventUpdate
 
 from dashhtmlgrid.plt_children import get_figure
 from dashhtmlgrid.html_layout import get_html_layout
@@ -9,10 +10,10 @@ from dashhtmlgrid.tests.example_stock_data import get_input_data, get_stock_data
 from dashhtmlgrid.tests.example_data_table import get_example_data_table_df
 
 # Dashboard custom settings
-grid_array = ['text_area', 'table']
+grid_array = ['text_area', 'table', 'figure', 'figure']
 
 figure_settings = [{
-    'id': 'figure_1',
+    'id': 'figure_0',
     'trace': {
         'data_source': None,
         'filter_column': 'stock',
@@ -24,7 +25,7 @@ figure_settings = [{
         'text': 'Price'
     }
 }, {
-    'id': 'figure_2',
+    'id': 'figure_1',
     'trace': {
         'data_source': None,
         'filter_column': 'stock',
@@ -61,17 +62,17 @@ layout_settings_custom = {
 
 # Initialize the app
 app = Dash(__name__)
-app.config.suppress_callback_exceptions = False
+app.config.suppress_callback_exceptions = True
 
 app.layout = get_html_layout(layout_settings_custom)
 
 
 def get_figure_0(selected_dropdown_value):
     data_source = get_input_data()
-    figure_1_df = data_source['df'].copy()
-    figure = get_figure(figure_1_df, [selected_dropdown_value],
+    figure_df = data_source['df'].copy()
+    figure = get_figure(figure_df, [selected_dropdown_value],
                         figure_settings,
-                        figure_idx=1)
+                        figure_idx=0)
 
     return figure
 
@@ -88,7 +89,6 @@ def get_figure_1(selected_dropdown_value):
 
 # Tests
 figure = get_figure_0('AAPL')
-figure = get_figure_1('AAPL')
 
 
 # Callback for Child Chart #1 (i.e. timeseries price)
@@ -99,6 +99,8 @@ def update_figure_0(n_clicks, selected_dropdown_value):
     if n_clicks > 0:
         figure = get_figure_0(selected_dropdown_value)
         return figure
+    else:
+        raise PreventUpdate
 
 
 # Callback for Child Chart #2 (i.e. Change Chart)
@@ -109,6 +111,8 @@ def update_figure_1(n_clicks, selected_dropdown_value):
     if n_clicks > 0:
         figure = get_figure_1(selected_dropdown_value)
         return figure
+    else:
+        raise PreventUpdate
 
 
 # Callback for Table #1 (i.e. Example table)
@@ -120,8 +124,9 @@ def update_table_0(n_clicks, selected_dropdown_value):
     if n_clicks > 0:
         table_1_df = get_example_data_table_df()
         table = get_dash_table_from_df(table_1_df, table_settings, table_idx=0)
-
         return table
+    else:
+        raise PreventUpdate
 
 
 if __name__ == '__main__':

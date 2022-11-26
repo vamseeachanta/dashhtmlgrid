@@ -24,7 +24,7 @@ def get_html_layout(layout_settings_custom):
             dash_text_area_children = get_text_area_with_submit_html_div(
                 text_area_settings, text_area_idx)
             text_area_idx = text_area_idx + 1
-            # html_children = html_children + text_area_with_submit_html
+            html_children = html_children + dash_text_area_children
         if grid_element == 'dropdown':
             html_child = get_dropdown_html_div(dropdown_settings, dropdown_idx)
             dropdown_idx = dropdown_idx + 1
@@ -38,15 +38,8 @@ def get_html_layout(layout_settings_custom):
             table_idx = table_idx + 1
             html_children.append(html_child)
 
-    if text_area_idx > 0:
-        # html_layout = html.Div(dash_text_area_children)
-        html_layout = html.Div(children=[
-            html.Div(className='row',
-                     children=dash_text_area_children + html_children)
-        ])
-    else:
-        html_layout = html.Div(
-            children=[html.Div(className='row', children=html_children)])
+    html_layout = html.Div(
+        children=[html.Div(className='row', children=html_children)])
 
     return html_layout
 
