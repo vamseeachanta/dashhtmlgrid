@@ -113,12 +113,6 @@ def get_plt_children_html(figure_settings_custom):
                   animate=True),
     ]
 
-    # for figure_index in range(0, len(figure_settings_custom)):
-    #     dcc_graph_child = dcc.Graph(id=figure_settings_custom[figure_index]['id'],
-    #                           config={'displayModeBar': False},
-    #                           animate=True),
-    #     plt_children_html.append(dcc_graph_child)
-
     return plt_children_html
 
 
