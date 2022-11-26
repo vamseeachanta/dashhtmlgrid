@@ -59,3 +59,6 @@ https://chart-studio.plotly.com/dashboard/PythonPlotBot:540/present#/
 20 line code dashboard tutorial
 - https://pythoninoffice.com/python-dash-web-app-tutorial/
 - https://youtu.be/fhJ_6EbawUA
+
+Unexpected errors
+https://pyquestions.com/getting-the-error-message-r-is-null-whenever-running-a-dash-application#:~:text=The%20r%20is%20null%20also%20error%20occurs%20for,are%20no%20traces%20that%20meet%20the%20user-specified%20criteria.

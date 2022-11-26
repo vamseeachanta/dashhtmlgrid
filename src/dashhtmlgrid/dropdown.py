@@ -54,3 +54,4 @@ def get_dropdown_div(dropdown_settings, dropdown_indx=0):
                              style=full_dropdown_settings['html_style'])
 
     return drop_down_div
+

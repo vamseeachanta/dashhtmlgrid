@@ -8,32 +8,66 @@ from dashhtmlgrid.data_table import get_dash_table_from_df
 
 def get_html_layout(layout_settings_custom):
 
-    grid_array = layout_settings_custom['grid_array']
-    dropdown_settings = layout_settings_custom['dropdown']
-    table_settings = layout_settings_custom['table']
-    figure_settings = layout_settings_custom['figure']
+    grid_array = layout_settings_custom.get('grid_array', None)
+    text_area_settings = layout_settings_custom.get('text_area', None)
+    dropdown_settings = layout_settings_custom.get('dropdown', None)
+    table_settings = layout_settings_custom.get('table', None)
+    figure_settings = layout_settings_custom.get('figure', None)
 
     html_children = []
+    text_area_idx = 0
     dropdown_idx = 0
     figure_idx = 0
     table_idx = 0
     for grid_element in grid_array:
+        if grid_element == 'text_area':
+            dash_text_area_children = get_text_area_with_submit_html_div(
+                text_area_settings, text_area_idx)
+            text_area_idx = text_area_idx + 1
+            # html_children = html_children + text_area_with_submit_html
         if grid_element == 'dropdown':
             html_child = get_dropdown_html_div(dropdown_settings, dropdown_idx)
             dropdown_idx = dropdown_idx + 1
+            html_children.append(html_child)
         elif grid_element == 'figure':
             html_child = get_figure_html_div(figure_settings, figure_idx)
             figure_idx = figure_idx + 1
+            html_children.append(html_child)
         elif grid_element == 'table':
             html_child = get_table_html_div(table_settings, table_idx)
             table_idx = table_idx + 1
+            html_children.append(html_child)
 
-        html_children.append(html_child)
-
-    html_layout = html.Div(
-        children=[html.Div(className='row', children=html_children)])
+    if text_area_idx > 0:
+        # html_layout = html.Div(dash_text_area_children)
+        html_layout = html.Div(children=[
+            html.Div(className='row',
+                     children=dash_text_area_children + html_children)
+        ])
+    else:
+        html_layout = html.Div(
+            children=[html.Div(className='row', children=html_children)])
 
     return html_layout
+
+
+def get_text_area_with_submit_html_div(text_area_settings, text_area_idx):
+
+    dash_text_area = dcc.Textarea(
+        id=text_area_settings[text_area_idx]['id'],
+        value=text_area_settings[text_area_idx]['value'],
+        style={
+            'width': '20%',
+            'height': 20
+        },
+    )
+    dash_submit = html.Button(text_area_settings[text_area_idx]['submit_text'],
+                              id=text_area_settings[text_area_idx]['button_id'],
+                              n_clicks=0)
+
+    dash_text_area_children = [dash_text_area, dash_submit]
+
+    return dash_text_area_children
 
 
 def get_dropdown_html_div(dropdown_settings, dropdown_idx):
