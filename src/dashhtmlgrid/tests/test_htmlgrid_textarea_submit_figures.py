@@ -39,6 +39,8 @@ figure_settings = [{
 }]
 
 stock_df = get_stock_data_df()
+
+dropdown_settings = []
 text_area_settings = [{
     'id': 'textarea-state',
     'value': 'AAPL',
@@ -55,6 +57,7 @@ table_settings = [{
 
 layout_settings_custom = {
     'grid_array': grid_array,
+    'dropdown': dropdown_settings,
     'text_area': text_area_settings,
     'table': table_settings,
     'figure': figure_settings,

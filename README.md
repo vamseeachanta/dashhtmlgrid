@@ -62,3 +62,8 @@ https://chart-studio.plotly.com/dashboard/PythonPlotBot:540/present#/
 
 Unexpected errors
 https://pyquestions.com/getting-the-error-message-r-is-null-whenever-running-a-dash-application#:~:text=The%20r%20is%20null%20also%20error%20occurs%20for,are%20no%20traces%20that%20meet%20the%20user-specified%20criteria.
+
+
+Flask and Plolty Apps
+https://towardsdatascience.com/an-interactive-web-dashboard-with-plotly-and-flask-c365cdec5e3f
+
